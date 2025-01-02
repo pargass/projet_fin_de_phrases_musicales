@@ -132,17 +132,53 @@ A cette étape, randomForest présentait le meilleur score (0.934), suivi de pr�
 Nous voulions à partir de là mieux prendre en compte l'ajustement des hyperparamètres pour optimiser au maximum les performances de nos modèles. Nous avions déjà manuellement testé, grâce à des boucles, les meilleurs hyperparamètres pour notre modèle MLP. Notamment pour comparer l'emploi de relu face au tanh, la valeur d'alpha, le learning_rate et le nombre d'itérations maximum.  
 Après avoir vu que random forest semblait être le plus performant, nous avions également utilisé une grid search sur celui-ci pour ajuster les hyperparamètres tel que la profondeur maximale de l'arbre (model__max_depth) ou encore le nombre minimum d’échantillons requis pour qu’un nœud devienne une feuille (model__min_samples_leaf).([voir résultats](#préparation-des-données))  
 
-Et nous souhaitions donc automatiser ces recherches d'hyperparamètres optimaux pour chaque test de modèle, avec les fonctions de scikit learn adaptées.  
+Et nous souhaitions donc automatiser ces recherches d'hyperparamètres pour les différents modèles, avec les fonctions de scikit learn adaptées. Nous avons décidé d'éliminer déjà certains modèles qui ont donné des score beaucoup trop bas. On peut citer Naive Bayes ou KNN, qui sont des modèles moins adaptés pour notre problème. 
 
---parler liste param_grids puis fn perform_grid_search
+Pour ce faire, nous avons construit un dictionnaire (voir code **param_grids**). Dans celui-ci, pour chacun des 5 meilleurs modèles parmis ceux cité précèdemment (SVM, MLP, gradiantBoosting, LogisticRegression, RandomForest), on associe une liste d'hyperparamètres en lien avec le modèle. Et pour chaque hyperparamètre, on donne une liste de valeurs possibles à tester.  
+
+Nous créons ensuite un second dictionnaire (voir code **pipelines**), qui pour chaque nom de modèle, créé une pipeline qui applique le scaler puis créé le modèle.  
+A la suite de cela, nous avons préparé une fonction (voir code **perform_grid_search**), qui applique une gridSearch (méthode d’optimisation systématique utilisée pour trouver les meilleures valeurs d’hyperparamètres pour un modèle de machine learnin), puis entraine les modèles en fonction et retourne les meilleures paramètres ainsi que les scores.  
+
+En parcourant nos modèles, on applique cette fonction avec la pipeline et les hyperparamètres correspondants depuis nos dictionnaires cités plus haut.  
+Cette recherche d'hyperparamètre a été croisée avec des tests d'ajustements de paramètres depuis le traitement des données (le nombre de notes par sous-séquences par exemple).
+
+### mentionner boucle sur longueur ou pas ?
+
+## Résultats
+
+### Choix des métriques de scores  
+
+Dans un premier temps, nous nous referions simplement au score donné par la fonction 'score' des différents modèles importés de scikit learn. Cette fonction se base sur une métrique par défaut associée à la classe de modèle utilisée. Elle varie donc en fonction du type de problème. Avec des problèmes de classification, la métrique par défaut est l'accuracy (proportion de prédictions correctes effectuées par le modèle par rapport au nombre total d'exemples).  
+Nous avons rapidement réalisé que cette métrique n'était pas suffisante dans notre contexte de par le déséquilibre dans nos classes ( si on ne les équilibre pas ). Dans ce cas, le score peut être très élevé malgré que le modèle soit peu performant. Nous avons donc regardé d'autres métriques.
+
+Pour évaluer les performances du modèle, et visualiser simplement et succintement un maximum d'informations, nous avons utilisé la fonction classification_report de la bibliothèque Scikit-learn. Cette fonction permet d'obtenir un résumé très complet des performances du modèle pour chaque classe, en calculant plusieurs métriques clés.  
+
+Nous avons notamment étudié le f1 score, la proportion des prédictions correctes parmi toutes les instances prédites comme appartenant à une classe donnée. Cette métrique est efficace face à des classes déséquilibrées comme ça a pu être le cas dans notre projet.  
+
+Dans le contexte de notre projet, nous avons également attentivement regardé le rappel (recall), soit la proportion des vrais positifs identifiés correctement parmi tous les exemples réellement positif. Ici il nous aide donc à mesurer la capacité du modèle à détecter les instances de la classe minoritaire. De ce fait on peut vérifier que le modèle n'est pas trop biaisé par notre classe majoritaire et arrive bien à detecter et prédire des fin de phrases.  
+
+Pour visualiser de manière plus graphique les prédictions concrètes des différents modèle, nous avons opté pour la matrice de confusion. Pour simplifier l'affichage dans nos différents tests, nous avons créé une fonction intermédiaire (voir code **plot_confusion_matrix**).  Cela nous a permis, à chaque affichage, d'ajouter un titre mais également de facilement sauvegarder en format png nos matrices.  
+
+### Valeurs des résultats  
+
+
+
+### Interprétation  
+
+## Conclusion 
+
+## Ouverture
+
+
+
+
+
+
+
+
+
 
 # reste a faire 
-
-mettre bon lien a la bonne ligne du fichier a chaque fois que j ai mis voir ...
-## résultats
-
-### choix des metriques de scores
-
 cross val score
 
 choix reverse sous sequence a permis de doubler notre nb d'échantillons
