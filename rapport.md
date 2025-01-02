@@ -161,6 +161,15 @@ Pour visualiser de manière plus graphique les prédictions concrètes des diff�
 
 ### Valeurs des résultats  
 
+Par soucis de clarté, nous ne présentons ici que les résultats clés et pertinents dans notre démarche et notre progression. D'aures résultats plus détaillés sont cependant disponibles dans le notebook.  
+
+- Premiers essais, avec un modèle MLP et un étiquetage 'any' (si une fin de note se trouve dans la sous-séquence, elle est classée 1) : score autour de 0.6 et 0.7 selon les hyperparamètres testés.  
+- On change donc l'étiquetage à 'end' (la séquence est classée à 1 si la dernière note est une fin de phrase), toujours avec MLP.
+    
+    - sans scaler : 0.91
+    - avec scaler : 0.93  
+
+![Test](confusion_matrix_for_model_1.png "Testtitre")
 
 
 ### Interprétation  
