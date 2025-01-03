@@ -301,7 +301,11 @@ En effet, au fur et à mesure du projet, il a fallu remettre en question nos pro
 
 A cela s'ajoute donc l'importance d'être organisé dans notre notebook pour ne pas se perdre parmi tous les différents tests.  
 
-Enfin, nous avons noté l'importance de rester critique face aux scores et leurs significations. Un bon score ne garantie pas systématiquement un bon modèle. IL est important de croiser les résultats et les métriques de score pour réellement comprendre ce qui se cache derrière les chiffres et ce que cela signifie concrétement en terme de prédiction pour le modèle.
+Le projet a également été enrichissant d'un point de vue technique car nous avons découvert de nouvelles bibliothèques et fonctions très pratiques, par exemple classification_report.
+
+De plus, nous avons noté l'importance de rester critique face aux scores et leurs significations. Un bon score ne garantie pas systématiquement un bon modèle. IL est important de croiser les résultats et les métriques de score pour réellement comprendre ce qui se cache derrière les chiffres et ce que cela signifie concrétement en terme de prédiction pour le modèle.  
+
+De manière plus globale, il serait intéressant de tester ce projet sur des jeux de données encore plus enrichis, avec des styles de musiques plus diversifiés et récents, de la pop actuelle par exemple. 
 
 
 # reste a faire 
