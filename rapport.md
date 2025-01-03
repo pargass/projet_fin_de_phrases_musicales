@@ -246,15 +246,49 @@ Par soucis de clarté, nous ne présentons ici que les résultats clés et perti
 
     - Decision Tree: 0.8895727689905273
 
-    - SGD: 0.9131173861016381
+    - SGD: 0.9131173861016381  
 
+- Random obtient le meilleur score, on regarde ses résultats après une grid search:  
+
+    - Best parameters found by grid search: {'model__max_depth': None, 'model__min_samples_leaf': 1, 'model__min_samples_split': 2, 'model__n_estimators': 300}  
+
+    - Mean cross-validation score with best model: 0.9345992098317941
 
 
 ### Interprétation  
 
-## Conclusion 
+Depuis ces résultats, on peut apprendre plusieurs choses, que ce soit sur les modèles ou les choix de traitement des données.  
 
-## Ouverture
+- Impact de l'étiquetage ('any' ou 'end')
+
+On remarque que le chois de l'étiquetage a un impact très fort sur les résultats. Les résultats sont systématiquements inférieurs quand l'étiquetage est 'any'. Cela a tendance a brouiller l'apprentissage du modèle.  
+
+
+- Longueur des sous-séquences  
+
+En général, si on a suffisament de sous-séquences à créer, alors il vaut mieux envisager donner de plus grande sous-séquences au modèle pour lui donner plus de contexte, en terme de notes, pour l'apprentissage. IL faut trouver le juste équilibre entre grand nombre de sous-séquences ou grande longueur de sous-séquence. Ici le meilleur choix est 8.  
+
+-  Importance du prétraitement des données (Scaler)  
+
+Les résultats montrent une amélioration des performances lorsque les données sont normalisées avec un scaler. Par exemple, avec l'étiquetage 'end', le score passe de 0.91 (sans scaler) à 0.93 (avec scaler). Cela nous confirme que les méthodes de normalisation sont essentielles pour les modèles sensibles à l'échelle des données, comme  avec celui choisi au départ, MLP.  
+
+-   Classe majoritaire et impact de l'équilibrage  
+
+Les performances initiales observées sur certaines configurations (par exemple, 0.91-0.93) étaient particulièrement élevées et semblaient victimes du biais de la classe majoritaire (visible également dans les matrices de confusion). En équilibrant les classes, les scores sont devenus plus représentatifs de la vrai capacité des modèles, notamment pour les configurations avec 'any' (0.75) et 'end' (0.87).  
+
+- Squençage classique ou inversé (reversed)
+
+Le séquençage inversé des données, en commençant par récupérer des sous-séquences de notes à la fin de la séquence, a permis d'observer une nette différence dans les scores (séquençage inversé : 0.90,  séquençage classique : 0.87). Cela s'explique, comme on peut le voir dans les matrices de confusion, par l'augmentation notable du nombre de sous-séquences classées à 1. Après équilibrage on peut donc garder plus d'exemples des deux classes.  
+
+- Comparaison des modèles
+
+Nos comparaisons entre les modèles montrent que la Random Forest obtient les meilleurs résultats avec un score moyen en cross-validation de 0.9344, suivi de près par les SVM (0.9311) et les MLP (0.9280). Les algorithmes restants tels que le KNN (0.7979) et le Naive Bayes (0.7999) sont, dans notre contexte, beaucoup moins performants. Ce sont des modèles qui capturent moins facilement des relations complexes entre les données.  
+
+- Importance des hyperparamètres
+
+Avec des paramètres optimaux, le meilleur modèle (random Forest ) a atteint une performance en validation croisée de 0.9346, ce qui augmente très légèrement notre résultat précédant. L'ajustement des hyperparamètres permet ainsi d'optimiser un maximum les performances d'un modèle.
+
+## Conclusion 
 
 
 
@@ -263,12 +297,9 @@ cross val score
 
 choix reverse sous sequence a permis de doubler notre nb d'échantillons
 
-qu'est ce qui ns a permis d'ameliorer nos score ? 
 
 
-meilleuir resultat -> longueur -> 8 , fin de phrase derniere note de sequence
-
-toujours meilleur -> derniere note que any
+meilleuir resultat -> longueur -> 8 ,
 
 en general si on a assez nb sous sequences, mieux grande sous sequence , car plus de contexte ds l'apprentissage que petites sous-sequences
 
@@ -278,3 +309,5 @@ en general si on a assez nb sous sequences, mieux grande sous sequence , car plu
 aller-retours
 
 ## ce que l'on a appris
+
+---------------------------------------
