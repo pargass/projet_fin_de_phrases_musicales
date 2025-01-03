@@ -166,10 +166,88 @@ Par soucis de clarté, nous ne présentons ici que les résultats clés et perti
 - Premiers essais, avec un modèle MLP et un étiquetage 'any' (si une fin de note se trouve dans la sous-séquence, elle est classée 1) : score autour de 0.6 et 0.7 selon les hyperparamètres testés.  
 - On change donc l'étiquetage à 'end' (la séquence est classée à 1 si la dernière note est une fin de phrase), toujours avec MLP.
     
-    - sans scaler : 0.91
+    - sans scaler : 0.91  
+
+     ![Test](confusion_matrix_for_model_2.png)
+
     - avec scaler : 0.93  
 
-![Test](confusion_matrix_for_model_1.png "Testtitre")
+    ![Test](confusion_matrix_for_model_4.png)  
+
+- Les résultats nous donnent l'impression que le modèle est biaisé par la classe majoritaire. On reteste le modèle MLP avec scaler mais avec l'équilibrage des classes.  
+
+    - any label : 0.75  
+
+    ![Test](confusion_matrix_for_model_5.png)  
+
+    -end label : 0.87 
+
+    ![Test](confusion_matrix_for_model_6.png)  
+
+- On essaye à présent de croiser l'impact de longueurs de sous-séquences différentes avec des étiquetages différents, toujours un modèle MLP avec scaler et avec des classes équilibrées. (voici quelques résultats)  
+
+    - longueur 4 label end : 0.86  
+
+    ![Test](confusion_matrix_for_model_length=4,_end=1.png)  
+
+
+    - longueur 4 label end jusqu'à 4eme note de la fin (any) : 0.83  
+
+    ![Test](confusion_matrix_for_model_length=4,_end=4.png)  
+
+    - longueur 6 label end : 0.86  
+
+    ![Test](confusion_matrix_for_model_length=6,_end=1.png) 
+
+    - longueur 6 label end jusqu'à 3eme note de la fin : 0.82  
+
+    ![Test](confusion_matrix_for_model_length=6,_end=3.png)  
+
+    - longueur 8 label end : 0.87  
+
+    ![Test](confusion_matrix_for_model_length=8,_end=1.png)  
+
+    - longueur 8 label end jusqu'à 4eme note de la fin: 0.80  
+
+    ![Test](confusion_matrix_for_model_length=8,_end=4.png)  
+
+    - longueur 10 label end : 0.86  
+
+    ![Test](confusion_matrix_for_model_length=10,_end=1.png)  
+
+    - longueur 10 label end jusqu'à 2eme note de la fin: 0.83  
+
+    ![Test](confusion_matrix_for_model_length=10,_end=2.png)  
+
+- Comparaison entre un sous-séquençage classique et en commençant par les notes de fin (reversed) ([voir explication au dessus](#préparation-des-données)). Nous avons gardé les meilleures paramètres des résultats déjà obtenus, donc toujours avec MLP, les classes sont éqilibrées, avec scaler, un étiquetage end label et une longueur de séquence 8 :  
+
+    - classique : 0.87  
+
+    ![Test](confusion_matrix_for_model_normal.png)  
+
+    - reverse : 0.90  
+
+    ![Test](confusion_matrix_for_model_reverse.png)  
+
+- Comparaison maintenant entre différents modèles. Avec les mêmes paramètres que juste au dessus, en ajoutant le sous-séquençage "reversed". Les Mean cross-validation scores sont :  
+
+
+    - Logistic Regression: 0.9255508778938977
+
+    - SVM: 0.9310906794335526
+
+    - Random Forest: 0.9344145044735676
+
+    - KNN: 0.7979809001560058
+
+    - MLP: 0.9280437632496057
+
+    - Naive Bayes: 0.7999196789088607
+
+    - Decision Tree: 0.8895727689905273
+
+    - SGD: 0.9131173861016381
+
 
 
 ### Interprétation  
@@ -177,13 +255,6 @@ Par soucis de clarté, nous ne présentons ici que les résultats clés et perti
 ## Conclusion 
 
 ## Ouverture
-
-
-
-
-
-
-
 
 
 
@@ -207,5 +278,3 @@ en general si on a assez nb sous sequences, mieux grande sous sequence , car plu
 aller-retours
 
 ## ce que l'on a appris
-
----------------------------------------
