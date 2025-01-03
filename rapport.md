@@ -261,7 +261,7 @@ Depuis ces résultats, on peut apprendre plusieurs choses, que ce soit sur les m
 
 - Impact de l'étiquetage ('any' ou 'end')
 
-On remarque que le chois de l'étiquetage a un impact très fort sur les résultats. Les résultats sont systématiquements inférieurs quand l'étiquetage est 'any'. Cela a tendance a brouiller l'apprentissage du modèle.  
+On remarque que le chois de l'étiquetage a un impact très fort sur les résultats. Les résultats sont systématiquements inférieurs quand l'étiquetage est 'any'. Cela a tendance a brouiller l'apprentissage du modèle.  ([voir explication au dessus](#préparation-des-données))
 
 
 - Longueur des sous-séquences  
@@ -286,28 +286,26 @@ Nos comparaisons entre les modèles montrent que la Random Forest obtient les me
 
 - Importance des hyperparamètres
 
-Avec des paramètres optimaux, le meilleur modèle (random Forest ) a atteint une performance en validation croisée de 0.9346, ce qui augmente très légèrement notre résultat précédant. L'ajustement des hyperparamètres permet ainsi d'optimiser un maximum les performances d'un modèle.
+Avec des paramètres optimaux, le meilleur modèle (random Forest ) a atteint une performance en validation croisée de 0.9346, ce qui augmente très légèrement notre résultat précédant. L'ajustement des hyperparamètres permet ainsi d'optimiser un maximum les performances d'un modèle.  
+
+Notre meilleur score global a ainsi été obtenu grâce au modèle Random Forest, avec une étiquetage 'end', une longueur de sous-séquence de 8 notes fixes, un sous-séquençage en partant de la fin, un équilibrage des 2 classes, l'application d'un scaler et enfin l'ajustement des hyper-paramètres grâce à notre gridSearch. Pour un score de 0.9346. 
 
 ## Conclusion 
 
+Ce projet a été particulièrement enrichissant en terme de méthodologie. En effet, nous avons du prendre en main une problématique et un jeu de données de zéro, sans indication de solutions ni aides sur l'approche à adopter comme on peut souvent le retrouver en tp.  
+Cela signifiait donc prendre un main et gérer tous les aspects de l'apprentissage d'un modèle. Du choix du traitements des données jusqu'aux choix techniques sur les hyperparamètres des modèles.  
+
+
+Ce qui a pu être difficile au début, a été de toujours revenir en arrière dans nos démarches pour reprendre certaines étapes et retester de nouvelles possibilités.  
+En effet, au fur et à mesure du projet, il a fallu remettre en question nos propres choix et notre vision des données pour ne pas rester enfermés dans une solution et cloisonnés à un score.  
+
+A cela s'ajoute donc l'importance d'être organisé dans notre notebook pour ne pas se perdre parmi tous les différents tests.  
+
+Enfin, nous avons noté l'importance de rester critique face aux scores et leurs significations. Un bon score ne garantie pas systématiquement un bon modèle. IL est important de croiser les résultats et les métriques de score pour réellement comprendre ce qui se cache derrière les chiffres et ce que cela signifie concrétement en terme de prédiction pour le modèle.
 
 
 # reste a faire 
-cross val score
 
-choix reverse sous sequence a permis de doubler notre nb d'échantillons
-
-
-
-meilleuir resultat -> longueur -> 8 ,
-
-en general si on a assez nb sous sequences, mieux grande sous sequence , car plus de contexte ds l'apprentissage que petites sous-sequences
-
-
-## lkimites difficultes rencontrees
-
-aller-retours
-
-## ce que l'on a appris
+mettre les bons liens ds le fichier 
 
 ---------------------------------------
