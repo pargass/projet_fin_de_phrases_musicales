@@ -2,6 +2,8 @@
 
 Loïcia Robart & Gaspar Henniaux
 
+github (https://github.com/pargass/projet_fin_de_phrases_musicales/tree/main)
+
 Voici notre rapport pour le projet de Prédiction de fins de phrases musicales. Il y a un notebook associé qui retrace notre cheminement de pensée et notre démarche. Il est intéressant d'avoir le rapport et le notebook sous les yeux pour visualiser notre démarche.  
 
 ## Analyse préliminaire du projet
